@@ -19,3 +19,4 @@ def getWebcam():
     cv2.destroyAllWindows()
     
 getWebcam()
+print("winnie saw this")
