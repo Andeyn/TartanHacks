@@ -8,7 +8,7 @@ def detectObj():
     detector.setModelTypeAsRetinaNet()
     detector.setModelPath( os.path.join(execution_path , "resnet50_coco_best_v2.0.1.h5"))
     detector.loadModel()
-    detections = detector.detectObjectsFromImage(input_image=os.path.join(execution_path , "OBAMA.jpg"),    output_image_path=os.path.join(execution_path , "andeyrequest'.jpg"))
+    detections = detector.detectObjectsFromImage(input_image=os.path.join(execution_path , "lovelyfemale.jpg"),    output_image_path=os.path.join(execution_path , "yup'.jpg"))
     result = []
 
     for eachObject in detections:
@@ -17,3 +17,4 @@ def detectObj():
     
     return result
     
+detectObj()
