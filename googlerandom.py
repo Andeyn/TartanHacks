@@ -7,11 +7,9 @@ import os
 import uuid
 import random
 import sys
-from urllib.request import urlopen, Request
+from urllib.request import urlop en, Request
 
 from bs4 import BeautifulSoup
-
-images = ["stock photo happy", "stockphoto sad", "stock photo angry", "meme template"]
 
 def configure_logging():
     logger = logging.getLogger()
