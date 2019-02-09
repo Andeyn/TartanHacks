@@ -122,6 +122,5 @@ def main():
     print(df)
 
 ## used to stream data junk by hashtags in main fucntion
- 
 
 main()

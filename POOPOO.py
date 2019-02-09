@@ -9,9 +9,9 @@ def butt(hashtags):
     oauth = OAuth(ACCESS_TOKEN, ACCESS_SECRET, CONSUMER_KEY, CONSUMER_SECRET)
     t = Twitter(auth=oauth)
 
-    query = t.search.tweets(q='%23dab')
+    query = t.search.tweets(q='%23' + hashtags)
 
     for s in query['statuses']:
         print(s['text'], '\n')
         
-butt()
+butt("wtf")
