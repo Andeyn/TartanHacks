@@ -7,7 +7,7 @@ import os
 import uuid
 import random
 import sys
-from urllib.request import urlop en, Request
+from urllib.request import urlopen, Request
 
 from bs4 import BeautifulSoup
 
