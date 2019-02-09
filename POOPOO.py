@@ -2,7 +2,7 @@ from twitter import Twitter, OAuth
 
 import os, ssl
 
-#catches twitter errors
+#catches verification errors
 if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
     getattr(ssl, '_create_unverified_context', None)): 
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -21,4 +21,4 @@ def butt(hashtags):
     for s in query['statuses']:
         print(s['text'], '\n')
         
-butt("wtf")
+butt("iris")

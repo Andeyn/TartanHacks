@@ -3,7 +3,8 @@ from tweepy import Cursor
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
- 
+from time import sleep
+
 import twitterCredentialsAPI
 import numpy as np
 import pandas as pd
@@ -106,6 +107,8 @@ class TweetAnalysis(): #analyzes and categorizes tweets
         df = pd.DataFrame(data=[tweet.text for tweet in tweets], columns=['Tweets']) 
         df['likes'] = np.array([tweet.favorite_count for tweet in tweets])
         return df
+        
+    
 def main(): 
     twitterUser = hashtagParser()
     tweetAnalyzer = TweetAnalysis()
@@ -116,11 +119,11 @@ def main():
     twitStreamer = TwitterStreamer()
     # tweets = twitStreamer.streamTweets(fetchedTweetFile, hashTagLst)
     #specifies which user and how many tweets from them
-    tweets = api.user_timeline(username, count=10)
+    tweets = api.user_timeline(username, count=5)
     # print(tweets)
     df = tweetAnalyzer.tweetsToDataFrame(tweets)
     print(df)
-
+    
 ## used to stream data junk by hashtags in main fucntion
 
 main()
