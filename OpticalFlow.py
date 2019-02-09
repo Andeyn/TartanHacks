@@ -1,14 +1,6 @@
 import numpy as np
 import cv2
 import copy
-<<<<<<< HEAD
-import tensorflow
-from tensorflow import emotionanalysis
-import keras_preprocessing
-=======
-
->>>>>>> 1952e899a76f8e6e7054cbf97f5e5a21ef665538
-
 
 def getWebcam():
     webcam = cv2.VideoCapture(0)
