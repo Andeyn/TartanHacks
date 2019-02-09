@@ -1,5 +1,5 @@
 from twitter import Twitter, OAuth                                                                                                                                                                                                         
-
+import random
 import os, ssl
 
 #catches verification errors
@@ -17,8 +17,13 @@ def butt(hashtags):
     t = Twitter(auth=oauth)
 
     query = t.search.tweets(q='%23' + hashtags)
-
+    detects = []
     for s in query['statuses']:
         print(s['text'], '\n')
-        
-butt("iris")
+        detects.append(s['text'])
+    
+    randCapt = random.choice(detects)
+    randCapt = "#" + randCapt
+    return randCapt
+butt('lmfao')
+print(butt('lmfao'))
