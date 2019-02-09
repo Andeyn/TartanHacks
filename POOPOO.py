@@ -1,5 +1,12 @@
 from twitter import Twitter, OAuth                                                                                                                                                                                                         
 
+import os, ssl
+
+#catches twitter errors
+if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
+    getattr(ssl, '_create_unverified_context', None)): 
+    ssl._create_default_https_context = ssl._create_unverified_context
+    
 def butt(hashtags):
     ACCESS_TOKEN = "1094105071346954240-cq8p86mVwoNW5D4hVgCpgetlNXhhEq"
     ACCESS_SECRET = "yF8wWyLqEX16RvmHqWxQnh1jBN619lRKlrn6LK42FxZM9"
