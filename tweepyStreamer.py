@@ -31,7 +31,7 @@ class TwitterClient():
     def get_twitter_client_api(self):
         return self.twitter_client
     
-    #specifies users
+    #specifies users and number of tweets
     def get_user_timeline_tweets(self, num_tweets):
         tweets = []
         for tweet in Cursor(self.twitter_client.user_timeline, id=self.twitter_user).items(num_tweets):
@@ -72,7 +72,6 @@ class StdOutListener(StreamListener): #reads the tweets
 
     def on_data(self, data):#try and except allows you to read files regardless
         try:
-            print(data)
             with open(self.fetchedTweetFile, 'a') as f: #'a' opens the file
                 f.write(data)
             return True
@@ -83,26 +82,46 @@ class StdOutListener(StreamListener): #reads the tweets
 
     def on_error(self, status):
         print(status)
-
+        pass
+        
+class hashtagParser():
+    def __init__(self, twitter_user=None):
+        self.auth = TwitterAuth().authTwitterApp()
+        self.twitter_client = API(self.auth)
+        self.twitter_user = twitter_user
+    
+    def get_twitter_client_api(self):
+        return self.twitter_client
+        
+    #specifies users and number of tweets
+    def get_user_timeline_tweets(self, num_tweets):
+        tweets = []
+        for tweet in Cursor(self.twitter_client.user_timeline).items(num_tweets):
+            tweets.append(tweet)
+        return tweets
+        
 class TweetAnalysis(): #analyzes and categorizes tweets
     def tweetsToDataFrame(self, tweets):
         #panda creates automatically creates a dataframe 
         df = pd.DataFrame(data=[tweet.text for tweet in tweets], columns=['Tweets']) 
-        
         df['likes'] = np.array([tweet.favorite_count for tweet in tweets])
         return df
 def main(): 
-    twitterUser = TwitterClient()
+    twitterUser = hashtagParser()
     tweetAnalyzer = TweetAnalysis()
-    api = TwitterClient().get_twitter_client_api()
+    api = hashtagParser().get_twitter_client_api()
+    hashTagLst = ["trump"]
+    fetchedTweetFile = "tweets.txt"
+    username = "KimKardashian"
+    twitStreamer = TwitterStreamer()
+    # tweets = twitStreamer.streamTweets(fetchedTweetFile, hashTagLst)
     #specifies which user and how many tweets from them
-    tweets = api.user_timeline(screen_name="KimKardashian", count=10)
+    tweets = api.user_timeline(username, count=10)
+    # print(tweets)
     df = tweetAnalyzer.tweetsToDataFrame(tweets)
     print(df)
 
 ## used to stream data junk by hashtags in main fucntion
-    # hashTagLst = ["kardashian", "jenner"]
-    # fetchedTweetFile = "tweets.txt"
-    # twitStreamer = TwitterStreamer()
-    # twitStreamer.streamTweets(fetchedTweetFile, hashTagLst)
+ 
+
 main()
