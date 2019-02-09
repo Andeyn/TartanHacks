@@ -4,7 +4,7 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 from time import sleep
-
+import bs4
 import twitterCredentialsAPI
 import numpy as np
 import pandas as pd

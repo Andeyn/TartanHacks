@@ -3,7 +3,6 @@ from Tkinter import *
 import os
 os.chdir('/Users/Andey/documents/github/tartanhacks/googleImages')
 
-
 consumer_key = "PW3luCZ75v2Pi7d11w7z9yIbm"
 consumer_secret = "tueL9DcKQUZjAhntoXZDQXhcmqnR2KyrTchLttprZIolVIt8ZP"
 access_token = "1094105071346954240-cq8p86mVwoNW5D4hVgCpgetlNXhhEq"
