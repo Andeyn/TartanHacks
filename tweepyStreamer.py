@@ -1,3 +1,5 @@
+from tweepy import API
+from tweepy import Cursor
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
@@ -7,20 +9,26 @@ import twitterCredentialsAPI
 
 #prints out junk of data of what type of tweets it is
 #returns date, type etc.
+##TWITTER AUTHENTIFICATION
 
+class TwitterAuth():
+    def __init__(self):
+        pass
+    def authTwitterApp(self):
+        auth = OAuthHandler(twitterCredentialsAPI.CONSUMER_KEY, twitterCredentialsAPI.CONSUMER_SECRET)
+        auth.set_access_token(twitterCredentialsAPI.ACCESS_TOKEN, twitterCredentialsAPI.ACCESS_TOKEN_SECRET)
+        return auth
 
 ### TWITTER STREAMER 
 class TwitterStreamer():
     def __init__(self):
-        pass
+        self.authenticateTweets = TwitterAuth()
 
-    def stream_tweets(self, fetchedTweetFile, hashTagLst):
+    def streamTweets(self, fetchedTweetFile, hashTagLst):
         #handles Twitter authetification and the connection to Twitter Streaming API
         listener = StdOutListener(fetchedTweetFile)
-        auth = OAuthHandler(twitterCredentialsAPI.CONSUMER_KEY, twitterCredentialsAPI.CONSUMER_SECRET)
-        auth.set_access_token(twitterCredentialsAPI.ACCESS_TOKEN, twitterCredentialsAPI.ACCESS_TOKEN_SECRET)
+        auth = self.authenticateTweets.authTwitterApp()
         stream = Stream(auth, listener)
-
         #calls the hashtaglist u want to parse through and find
         stream.filter(track=hashTagLst)
 
@@ -45,12 +53,10 @@ class StdOutListener(StreamListener):
         print(status)
 
  
-def main():
- 
-    # Authenticate using config.py and connect to Twitter Streaming API.
-    hashTagLst = ["CMU", "carnegie mellon", "college"]
+def main(): 
+    hashTagLst = ["kardashian", "jenner"]
     fetchedTweetFile = "tweets.txt"
 
     twitStreamer = TwitterStreamer()
-    twitStreamer.stream_tweets(fetchedTweetFile, hashTagLst)
+    twitStreamer.streamTweets(fetchedTweetFile, hashTagLst)
 main()
