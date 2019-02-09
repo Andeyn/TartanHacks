@@ -9,6 +9,7 @@ import os
 import uuid
 import random
 import sys
+import bot
 from urllib.request import urlopen, Request
 
 from bs4 import BeautifulSoup
@@ -108,17 +109,26 @@ def generateImg():
 
     
 def detectObj():
-    execution_path = os.getcwd()
+    execution_path = "C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\"
+    print(execution_path)
+    print(1)
     detector = ObjectDetection()    
     detector.setModelTypeAsRetinaNet()
+    print(execution_path)
     detector.setModelPath( os.path.join(execution_path , "resnet50_coco_best_v2.0.1.h5"))
+    print(2)
+    print(execution_path)
     detector.loadModel()
+    print(899)
+    print(execution_path)
     execution_path = os.path.join(execution_path, "ObjectDetection")
+    print(5)
     execution_path = os.path.join(execution_path, "googleImages")
     
     print(execution_path)
     detections = detector.detectObjectsFromImage(input_image = os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]),    output_image_path=os.path.join(execution_path , "output.jpg"))
-    
+
+    print(3)
     result = []
 
     for eachObject in detections:
@@ -127,17 +137,24 @@ def detectObj():
     
     print(execution_path)
     
-    os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]))
-    os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]))
+    # os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[1]))
+    # os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]))
         
     return result
     
 def main():
+    print("butt")
     generateImg()
-    detectObj()
+    keywords = detectObj()
+    if keywords == []:
+        execution_path = "C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages"
+        os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]))
+        os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]))
+        main()
+    bot.post(keywords[0])
+    execution_path = "C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages"
     os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]))
     os.remove(os.path.join(execution_path, os.listdir("C:\\Users\\Tim\\Documents\\Github\\TartanHacks\\ObjectDetection\\googleImages")[0]))
-    
 
 if __name__ == '__main__':
     main()
